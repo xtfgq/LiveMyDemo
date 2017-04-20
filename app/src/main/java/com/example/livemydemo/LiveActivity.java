@@ -101,11 +101,9 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         playUrl = this.getIntent().getStringExtra("playUrl");
         groupId = this.getIntent().getStringExtra("groupId");
         setContentView(R.layout.activity_live);
-
         mCurrentRenderMode = TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN;
         mCurrentRenderRotation = TXLiveConstants.RENDER_ROTATION_PORTRAIT;
         mPlayConfig = new TXLivePlayConfig();
@@ -166,17 +164,13 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
         appendEventLog(event, msg);
         if (event < 0) {
                 Toast.makeText(this, param.getString(TXLiveConstants.EVT_DESCRIPTION), Toast.LENGTH_SHORT).show();
-
         }
-
         else if (event == TXLiveConstants.PLAY_EVT_PLAY_BEGIN) {
             stopLoadingAnimation();
         }
 
     }
     private void stopPlayRtmp() {
-
-
         stopLoadingAnimation();
         if (mLivePlayer != null) {
             mLivePlayer.setPlayListener(null);

@@ -67,7 +67,7 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
 
     private int mCurrentRenderMode;
     private int mCurrentRenderRotation;
-    StringBuffer          mLogMsg = new StringBuffer("");
+    StringBuffer mLogMsg = new StringBuffer("");
     private TXLivePlayConfig mPlayConfig;
 
     private int mPlayType = TXLivePlayer.PLAY_TYPE_LIVE_RTMP;
@@ -97,7 +97,7 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
     private View layout_video;
     private boolean          mVideoPlay;
     private InputMethodManager imm;
-    private LinearLayout root;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +122,7 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
         mPlayerView = (TXCloudVideoView) findViewById(R.id.video_view);
         mPlayerView.disableLog(true);
         mLivePlayer.setConfig(mPlayConfig);
-        root=(LinearLayout)findViewById(R.id.root);
+
 
         // 硬件加速在1080p解码场景下效果显著，但细节之处并不如想象的那么美好：
         // (1) 只有 4.3 以上android系统才支持
@@ -240,11 +240,9 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
             Toast.makeText(this, "非腾讯云链接地址，若要放开限制，请联系腾讯云商务团队", Toast.LENGTH_SHORT).show();
         }
         if (result != 0) {
-
             return false;
         }
         mVideoPlay=true;
-
         return true;
     }
     private boolean checkPlayUrl(final String playUrl) {
@@ -271,7 +269,6 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
                     mLivePlayer.resume();
                 }
             }
-
         }
 
         if (mPlayerView != null){
@@ -283,7 +280,6 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
     @Override
     public void onPause() {
         super.onPause();
-
     }
     @Override
     public void onStop(){
@@ -293,8 +289,6 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
             if (mLivePlayer != null) {
                 mLivePlayer.pause();
             }
-        } else {
-            //stopPlayRtmp();
         }
 
         if (mPlayerView != null){
@@ -332,7 +326,6 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
      */
     private void notifyQuitReady() {
         TIMManager.getInstance().removeMessageListener(msgListener);
-
     }
     private void joinIMChatRoom(final String chatRoomId) {
 
@@ -468,17 +461,8 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
             hideActionBar();
             ll_room.setVisibility(View.GONE);
             et_send.setVisibility(View.VISIBLE);
-//            int width = getResources().getDisplayMetrics().widthPixels;
-//            int height = getResources().getDisplayMetrics().heightPixels;
-//            int width = ScreenUtils.getScreenWidth(LiveActivity.this);
-//            int height = ScreenUtils.getScreenHeight(LiveActivity.this);
-
             layout_video.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             mPlayerView.setLayoutParams(new RelativeLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-
-
-
         } else {
             full(false);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -503,7 +487,6 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
     public void onBackPressed() {
         if (isScreenOriatationPortrait(this)) {
             finish();
-
         }else{
             fullScreen();
         }
@@ -516,13 +499,11 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
             lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
             getWindow().setAttributes(lp);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         } else {
             WindowManager.LayoutParams attr = getWindow().getAttributes();
             attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setAttributes(attr);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         }
     }
 
@@ -575,9 +556,7 @@ public class LiveActivity  extends AppCompatActivity implements ITXLivePlayListe
         if (Nmsg.addElement(elem) != 0) {
             return;
         }
-
        sendMessage(Nmsg);
-
     }
     public void sendMessage(TIMMessage msg) {
         mGroupConversation = TIMManager.getInstance().getConversation(TIMConversationType.Group, groupId);
